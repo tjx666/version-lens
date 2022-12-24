@@ -15,7 +15,6 @@
       "outFiles": [
         "${workspaceFolder}/dist/extension.bundle.js"
       ],
-      "stopOnEntry": false,
       "sourceMaps": true,
       "preLaunchTask": "compile",
       "internalConsoleOptions": "openOnSessionStart",
@@ -36,7 +35,6 @@
       "outFiles": [
         "${workspaceFolder}/dist/**/*.js"
       ],
-      "stopOnEntry": false,
       "sourceMaps": true,
       "preLaunchTask": "pretest",
       "internalConsoleOptions": "openOnSessionStart",

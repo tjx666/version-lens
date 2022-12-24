@@ -23,5 +23,10 @@
   },
   "customDependencies": {
     "@types/hammerjs": "2.0.33"
+  },
+  "pnpm": {
+    "overrides": {
+      "semver": "5.3.0"
+    }
   }
 }

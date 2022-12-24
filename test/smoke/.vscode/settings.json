@@ -10,6 +10,6 @@
     "devDependencies",
     "peerDependencies",
     "optionalDependencies",
-    "customDependencies"
-  ]
+    "pnpm.overrides"
+],
 }

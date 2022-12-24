@@ -8,19 +8,16 @@ export function extractPackageDependenciesFromJson(
   const jsonParser = require("jsonc-parser");
   const jsonTree = jsonParser.parseTree(json, jsonErrors);
   if (!jsonTree || jsonTree.children.length === 0 || jsonErrors.length > 0) return [];
-  return extractFromNodes(jsonTree.children, filterPropertyNames);
+  return extractFromNodes(jsonTree, filterPropertyNames);
 }
 
-export function extractFromNodes(topLevelNodes, includePropertyNames: string[]): IPackageDependency[] {
+export function extractFromNodes(jsonTree, includePropertyNames: string[]): IPackageDependency[] {
   const collector = [];
-
-  topLevelNodes.forEach(
-    function (node) {
-      const [keyEntry, valueEntry] = node.children;
-      if (includePropertyNames.includes(keyEntry.value) === false) return;
-      collectDependencyNodes(valueEntry.children, null, '', collector);
-    }
-  )
+  const jsonParser = require("jsonc-parser");
+  for (const property of includePropertyNames) {
+    const node = jsonParser.findNodeAtLocation(jsonTree, property.split('.'));
+    if (node) collectDependencyNodes(node.children, null, '', collector);
+  }
 
   return collector
 }
