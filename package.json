@@ -1,5 +1,5 @@
 {
-  "name": "vscode-versionlens",
+  "name": "vscode-versionlens-plus",
   "preview": false,
   "private": true,
   "description": "Shows the latest version for each package using code lens",
@@ -10,11 +10,11 @@
   "author": "Peter Flannery",
   "license": "ISC",
   "version": "1.0.10",
-  "publisher": "pflannery",
+  "publisher": "YuTengjing",
   "displayName": "Version Lens",
   "icon": "images/logo.png",
   "engines": {
-    "vscode": "^1.52.0"
+    "vscode": "^1.74.0"
   },
   "keywords": [
     "versions",
@@ -51,16 +51,16 @@
     "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js"
   },
   "devDependencies": {
-    "@types/node": "^12",
-    "@types/vscode": "1.52.0",
+    "@types/node": "^16.18.10",
+    "@types/vscode": "1.74.0",
     "@types/winston": "2.4.4",
     "rimraf": "3.0.2",
-    "typescript": "4.1.3",
-    "ts-loader": "7.0.5",
+    "typescript": "4.8.4",
+    "ts-loader": "8.4.0",
     "ts-mockito": "2.6.1",
     "mocha": "8.2.1",
     "mocha-ui-esm": "1.0.0-alpha.4",
-    "source-map-support": "0.5.19",
+    "source-map-support": "0.5.21",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "vscode-test": "1.4.1"
@@ -68,16 +68,16 @@
   "dependencies": {
     "@npmcli/promise-spawn": "1.3.2",
     "awilix": "4.3.1",
-    "npm-package-arg": "8.1.0",
+    "npm-package-arg": "10.1.0",
     "libnpmconfig": "1.2.1",
     "pacote": "9.5.12",
-    "minimatch": "3.0.4",
+    "minimatch": "5.1.2",
     "request-light": "0.4.0",
-    "semver": "7.3.4",
-    "xmldoc": "1.1.2",
+    "semver": "7.3.8",
+    "xmldoc": "1.2.0",
     "yaml": "1.10.0",
-    "jsonc-parser": "3.0.0",
-    "winston": "3.3.3"
+    "jsonc-parser": "3.2.0",
+    "winston": "3.8.2"
   },
   "contributes": {
     "commands": [
