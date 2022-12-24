@@ -1,0 +1,12 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+test:
+  script:
+    - docker build -t versionlens:unit_tests -f ./build/docker/unit_tests.dockerfile .
+    - docker run --rm versionlens:unit_tests
+  only:
+    - master
+    - merge_requests

@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "../out/",
+    "lib": [
+      "ES2019"
+    ],
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "src",
+    "paths": {
+      "core.*": [
+        "core.*/index",
+      ],
+      "infrastructure.*": [
+        "infrastructure.*/index",
+      ],
+      "infrastructure.providers.*": [
+        "infrastructure.providers/*/index"
+      ],
+      "presentation.*": [
+        "presentation.*/index"
+      ],
+      "test.core.*": [
+        "core.*/index.test"
+      ],
+      "test.infrastructure.*": [
+        "infrastructure.*/index.test",
+      ],
+      "test.infrastructure.providers.*": [
+        "infrastructure.providers/*/index.test",
+      ],
+      "test.providers.*": [
+        "providers.*/index.test",
+      ]
+    }
+  }
+}

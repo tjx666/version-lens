@@ -1,0 +1,60 @@
+name: Publish Preview
+
+# triggers when a preview build is "prereleased" via github ui or api
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+
+  publish-preview:
+
+    runs-on: ubuntu-latest
+
+    # only -preview versions
+    if: contains(github.event.release.tag_name, '-preview')
+
+    steps:
+      # checkout release tag commit
+      - name: Checkout release@${{ github.event.release.tag_name }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.target_commitish }}
+
+      - name: Use node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      # generate the vsix file name
+      - name: Generate vsix filename
+        run: echo "::set-env name=VSIX_FILENAME::vscode-versionlens-${{ github.event.release.tag_name }}.vsix"
+
+      - name: Set package.json to preview
+        run: | 
+          mv package.json edit.json
+          node -pe "JSON.stringify({...require('./edit.json'), 'version': '${{ github.event.release.tag_name }}', 'preview': true}, null, '\t')" > ./package.json
+
+      # install dependencies
+      - name: Install dependencies
+        run: npm i
+
+      # install vsce
+      - name: Install vsce
+        run: npm i vsce -g
+
+      # compile and package to vsix
+      - name: Build vsix package
+        run: vsce package --out ${{ env.VSIX_FILENAME }}
+
+      # save to build artifacts
+      - name: Create package artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.VSIX_FILENAME }}
+          path: ${{ env.VSIX_FILENAME }}
+
+      # publish the preview
+      - name: Publish package
+        run: vsce publish --packagePath=${{ env.VSIX_FILENAME }} -p ${{ secrets.VSCE_TOKEN }}

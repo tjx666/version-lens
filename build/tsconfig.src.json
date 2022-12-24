@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out/",
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+  },
+  "include": [
+    "../src/infrastructure.providers/**/index.ts"
+  ]
+}

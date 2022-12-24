@@ -1,0 +1,8 @@
+out
+node_modules
+npm-debug.log
+.vscode-test
+test/smoke/dotnet/obj/
+test/smoke/dotnet/bin/
+**/.npmrc
+dist/

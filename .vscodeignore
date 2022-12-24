@@ -1,0 +1,16 @@
+.vscode/**
+.vscode-test/**
+typings/**
+out/test/**
+test/**
+src/**
+grunt/**
+node_modules/**/*.md
+node_modules/**/*.html
+node_modules/**/*.css
+node_modules/**/*.svg
+gruntfile.js
+.travis*
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md

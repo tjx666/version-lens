@@ -1,0 +1,57 @@
+{
+  "version": "2.0.0",
+  "command": "npm",
+  "type": "shell",
+  "echoCommand": true,
+  "args": [
+    "run",
+    "-s"
+  ],
+  "tasks": [
+    {
+      "label": "compile",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+      },
+      "group": {
+        "isDefault": true,
+        "kind": "build",
+      },
+      "args": [
+        "compile"
+      ],
+    },
+    {
+      "label": "pretest",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+      },
+      "group": "test",
+      "args": [
+        "pretest"
+      ],
+    },
+    {
+      "label": "test:unit",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+      },
+      "group": {
+        "isDefault": true,
+        "kind": "test",
+      },
+      "args": [
+        "test:unit"
+      ],
+    }
+  ]
+}

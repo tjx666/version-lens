@@ -1,0 +1,27 @@
+{
+  "name": "smoke-test",
+  "title": "smoke test",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^2.3.4",
+    "aliased": "npm:typescript@2.3.4",
+    "bootstrap": "twbs/bootstrap#v3.3.0",
+    "express": "expressjs/express#semver:4.*",
+    "test": "file:../../../src",
+    "@types/angular": "~1.5",
+    "@types/node": "latest",
+    "@angular/core": "2.2.1",
+    "webpack": "next",
+    "semver": "5.3.0",
+    "@openapitools/openapi-generator-cli": "",
+    "@smoke/private-pub": "0.1",
+    "npm": ">=4.5.1",
+    "invalid": ">=4.5.",
+    "gitpkgnotfound1": "git+https://git@github.com/testuser/test.git",
+    "gitpkgnotfound2": "git+ssh://git@some.com/testuser/test.git",
+    "@could-not-be-found/a": "^1.0.0"
+  },
+  "customDependencies": {
+    "@types/hammerjs": "2.0.33"
+  }
+}

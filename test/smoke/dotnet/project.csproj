@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <!-- Minimum version, inclusive -->
+    <PackageReference Include="jQuery" Version="3.1" />
+
+    <!-- Minimum version, exclusive -->
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="(3.0,)" />
+
+    <!-- Exact version match -->
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="[2.10]" />
+
+    <!-- Maximum version, inclusive -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="(,1.1]" />
+
+    <!-- Maximum version, exclusive -->
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="(,1.1)" />
+
+    <!-- Exact range, inclusive-->
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="(1.1,1.1.5]" />
+
+    <!-- Exact range, exclusive-->
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="(1.1,2.1.6]" />
+
+    <!-- Mixed inclusive minimum and exclusive maximum version -->
+    <PackageReference Include="Newtonsoft.Json" Version="[10,11)" />
+
+    <!-- Range not found -->
+    <PackageReference Include="bootstrap" Version="(100, 200)" />
+
+    <!-- Pre release version -->
+    <PackageReference Include="NUnit" Version="3.0.0-beta-5" />
+
+    <!-- Wild card version -->
+    <PackageReference Include="AngularJS.Core" Version="1.*" />
+
+    <!-- Match not found -->
+    <PackageReference Include="Microsoft.NETCore.App" Version="3001.0.0" />
+
+    <!-- Could not be found -->
+    <PackageReference Include="should.not.be.found" Version="[10,11)" />
+
+    <!-- Wild card version (Update attr) -->
+    <PackageReference Update="AngularJS.Core" Version="1.*" />
+
+    <!-- 4 segment versions -->
+    <PackageReference Include="System.Data.SQLite" Version="1.0.112.2" />
+
+  </ItemGroup>
+
+</Project>

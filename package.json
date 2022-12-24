@@ -1,0 +1,456 @@
+{
+  "name": "vscode-versionlens",
+  "preview": false,
+  "private": true,
+  "description": "Shows the latest version for each package using code lens",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/versionlens/vscode-versionlens.git"
+  },
+  "author": "Peter Flannery",
+  "license": "ISC",
+  "version": "1.0.10",
+  "publisher": "pflannery",
+  "displayName": "Version Lens",
+  "icon": "images/logo.png",
+  "engines": {
+    "vscode": "^1.52.0"
+  },
+  "keywords": [
+    "versions",
+    "packages",
+    "dependencies",
+    "references",
+    "npm, dub, dotnet, nuget, jspm, csharp, fsharp, c#, f#, java, maven, pub, dart, composer"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:json",
+    "onLanguage:xml",
+    "onLanguage:yaml"
+  ],
+  "main": "./dist/extension.bundle.js",
+  "scripts": {
+    "pack": "webpack --config=./build/webpack.js --env.logging=false",
+    "reset": "npm run -s clean && rimraf ./node_modules && rm -f ./package-lock.json",
+    "vscode:prepublish": "npm run -s pack -- --mode=development",
+    "clean": "rimraf ./out ./dist",
+    "compile:src": "tsc -p ./build/tsconfig.src.json",
+    "lint:src": "npm run -s compile:src -- --noEmit",
+    "pack:src": "npm run -s pack -- --mode=development",
+    "precompile": "npm run -s clean && npm run -s lint:src",
+    "compile": "npm run -s pack:src",
+    "compile:test": "tsc -p ./build/tsconfig.test.json",
+    "lint:test": "npm run -s compile:test -- --noEmit",
+    "pack:test": "npm run -s pack -- --env.test=true --mode=development",
+    "pretest": "npm run -s clean && npm run -s lint:test && npm run -s pack:test",
+    "test": "node ./test/run.vscode.tests",
+    "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^12",
+    "@types/vscode": "1.52.0",
+    "@types/winston": "2.4.4",
+    "rimraf": "3.0.2",
+    "typescript": "4.1.3",
+    "ts-loader": "7.0.5",
+    "ts-mockito": "2.6.1",
+    "mocha": "8.2.1",
+    "mocha-ui-esm": "1.0.0-alpha.4",
+    "source-map-support": "0.5.19",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.11",
+    "vscode-test": "1.4.1"
+  },
+  "dependencies": {
+    "@npmcli/promise-spawn": "1.3.2",
+    "awilix": "4.3.1",
+    "npm-package-arg": "8.1.0",
+    "libnpmconfig": "1.2.1",
+    "pacote": "9.5.12",
+    "minimatch": "3.0.4",
+    "request-light": "0.4.0",
+    "semver": "7.3.4",
+    "xmldoc": "1.1.2",
+    "yaml": "1.10.0",
+    "jsonc-parser": "3.0.0",
+    "winston": "3.3.3"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "versionlens.onShowError",
+        "title": "An error has occurred. See log for details.",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/toggle-death.svg",
+          "light": "images/icons/toggle-death.svg"
+        }
+      },
+      {
+        "command": "versionlens.onShowVersionLenses",
+        "title": "Show dependency versions",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/toggle-dark.svg",
+          "light": "images/icons/toggle-light.svg"
+        }
+      },
+      {
+        "command": "versionlens.onHideVersionLenses",
+        "title": "Hide dependency versions",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/toggle-active.svg",
+          "light": "images/icons/toggle-active.svg"
+        }
+      },
+      {
+        "command": "versionlens.onShowPrereleaseVersions",
+        "title": "Show tagged dependency versions",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/tag-dark.svg",
+          "light": "images/icons/tag-light.svg"
+        }
+      },
+      {
+        "command": "versionlens.onHidePrereleaseVersions",
+        "title": "Hide tagged dependency versions",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/tag-active.svg",
+          "light": "images/icons/tag-active.svg"
+        }
+      },
+      {
+        "command": "versionlens.onShowingProgress",
+        "title": "Analyzing dependencies...",
+        "category": "VersionLens",
+        "icon": {
+          "dark": "images/icons/toggle-active-progress.svg",
+          "light": "images/icons/toggle-active-progress.svg"
+        }
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "versionlens.onShowPrereleaseVersions",
+          "when": "versionlens.enabled && versionlens.providerActive"
+        },
+        {
+          "command": "versionlens.onHidePrereleaseVersions",
+          "when": "versionlens.enabled && versionlens.providerActive"
+        },
+        {
+          "command": "versionlens.onShowVersionLenses",
+          "when": "versionlens.enabled && versionlens.providerActive"
+        },
+        {
+          "command": "versionlens.onHideVersionLenses",
+          "when": "versionlens.enabled && versionlens.providerActive"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "versionlens.onShowError",
+          "when": "versionlens.providerError && versionlens.providerActive && textCompareEditorVisible == false",
+          "group": "navigation@1"
+        },
+        {
+          "command": "versionlens.onShowVersionLenses",
+          "when": "versionlens.enabled == false && versionlens.providerActive && versionlens.providerBusy == false && versionlens.providerError == false && textCompareEditorVisible == false",
+          "group": "navigation@1"
+        },
+        {
+          "command": "versionlens.onHideVersionLenses",
+          "when": "versionlens.enabled && versionlens.providerActive && versionlens.providerBusy == false && versionlens.providerError == false  && textCompareEditorVisible == false",
+          "group": "navigation@1"
+        },
+        {
+          "command": "versionlens.onShowingProgress",
+          "when": "versionlens.providerBusy && versionlens.providerActive && versionlens.providerError == false && textCompareEditorVisible == false",
+          "group": "navigation@1"
+        },
+        {
+          "command": "versionlens.onShowPrereleaseVersions",
+          "when": "versionlens.prereleasesEnabled == false && versionlens.enabled && versionlens.providerActive && versionlens.providerSupportsPrereleases && textCompareEditorVisible == false",
+          "group": "navigation@2"
+        },
+        {
+          "command": "versionlens.onHidePrereleaseVersions",
+          "when": "versionlens.prereleasesEnabled && versionlens.enabled && versionlens.providerActive && versionlens.providerSupportsPrereleases && textCompareEditorVisible == false",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VersionLens",
+      "properties": {
+        "versionlens.suggestions.showOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show version suggestions by default on vscode start up."
+        },
+        "versionlens.suggestions.showPrereleasesOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show version prerelease suggestions by default on vscode start up."
+        },
+        "versionlens.logging.level": {
+          "type": "string",
+          "enum": [
+            "error",
+            "info",
+            "debug"
+          ],
+          "default": "error",
+          "description": "Sets the level of logs to be written to the VersionLens output channel."
+        },
+        "versionlens.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "default": 3,
+          "description": "Specifies how long (in minutes) version suggestions will be cached. Setting the duration to 0 will disable caching."
+        },
+        "versionlens.http.strictSSL": {
+          "type": [
+            "boolean"
+          ],
+          "default": true,
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned."
+        },
+        "versionlens.npm.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.npm.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.npm.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "dependencies",
+            "devDependencies",
+            "peerDependencies",
+            "optionalDependencies"
+          ],
+          "description": "Defines which properties in package.json should be parsed by this extension"
+        },
+        "versionlens.npm.distTagFilter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "default": [],
+          "description": "Define which common dist tags you want to see. i.e. [alpha, beta]. If you don't specify any dist tags then all the dist-tags for a package will be shown."
+        },
+        "versionlens.pub.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.pub.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.pub.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "dependencies",
+            "dev_dependencies"
+          ],
+          "description": "Defines which properties in pubspec.yaml should be parsed by this extension"
+        },
+        "versionlens.pub.apiUrl": {
+          "type": "string",
+          "default": "https://pub.dev",
+          "description": "Defines the pub api to use for package searching."
+        },
+        "versionlens.dotnet.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.dotnet.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.dotnet.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "PackageReference",
+            "PackageVersion",
+            "DotNetCliToolReference"
+          ],
+          "description": "Defines which project properties should be parsed by this extension"
+        },
+        "versionlens.dotnet.tagFilter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 0,
+          "default": [],
+          "description": "Define which common tagged versions you want to see. i.e. [alpha, beta]. If you don't specify any dist tags then all the dist-tags for a package will be shown."
+        },
+        "versionlens.dotnet.nuget.sources": {
+          "type": "array",
+          "items": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "default": [],
+          "description": "Defines which nuget source to use for package searching. Has to be a v3 'service index' endpoint. e.g. https://api.nuget.org/v3/index.json. Defaults to the sources output by `dotnet nuget list source`"
+        },
+        "versionlens.dub.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.dub.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.dub.apiUrl": {
+          "type": "string",
+          "default": "https://code.dlang.org/api/packages",
+          "description": "Defines the api to use for dub package searching."
+        },
+        "versionlens.dub.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "dependencies",
+            "versions"
+          ],
+          "description": "Defines which properties in dub.json should be parsed by this extension"
+        },
+        "versionlens.composer.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.composer.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.composer.apiUrl": {
+          "type": "string",
+          "default": "https://repo.packagist.org/p",
+          "description": "Defines the api to use for composer package searching."
+        },
+        "versionlens.composer.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "require",
+            "require-dev"
+          ],
+          "description": "Defines which properties in composer.json should be parsed by this extension"
+        },
+        "versionlens.maven.caching.duration": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Specifies how long (in minutes) version suggestions will be cached."
+        },
+        "versionlens.maven.http.strictSSL": {
+          "type": [
+            "null",
+            "boolean"
+          ],
+          "description": "When set to 'true' the server will reject any connection which is not authorized within the list of supplied CAs. Set to false for unsigned. Overrides 'versionlens.http.strictSSL'"
+        },
+        "versionlens.maven.apiUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Defines the api to use for maven package searching."
+        },
+        "versionlens.maven.dependencyProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "default": [
+            "dependency",
+            "parent"
+          ],
+          "description": "Defines which properties in pom.xml should be parsed by this extension"
+        },
+        "versionlens.github.accessToken": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "default": "",
+          "description": "Used for making basic read only github api requests. To generate a token see https://help.github.com/articles/creating-an-access-token-for-command-line-use/#creating-a-token. When no token is provided then access to the github api is rate limited to 60 requests every 10 minutes or so."
+        }
+      }
+    }
+  }
+}

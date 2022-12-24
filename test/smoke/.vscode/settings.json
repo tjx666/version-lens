@@ -1,0 +1,15 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "versionlens.logging.level": "info",
+  "versionlens.caching.duration": 0,
+  "versionlens.suggestions.showOnStartup": false,
+  "versionlens.suggestions.showPrereleasesOnStartup": false,
+  "versionlens.dotnet.nuget.sources": [],
+  "versionlens.npm.dependencyProperties": [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "optionalDependencies",
+    "customDependencies"
+  ]
+}

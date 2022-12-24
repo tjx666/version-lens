@@ -1,0 +1,8 @@
+{
+  "fileVersion": 1,
+  "versions": {
+    "gtk-d:gtkd": "3.2.2",
+    "imageformats": "5.0.0",
+    "derelict-sdl2": "1.9.7"
+  }
+}
