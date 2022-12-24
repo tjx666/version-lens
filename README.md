@@ -1,20 +1,20 @@
 # Version Lens for Visual Studio Code
 
-[![Badge for version for Visual Studio Code extension](https://vsmarketplacebadge.apphb.com/version-short/pflannery.vscode-versionlens.svg?color=blue&style=?style=for-the-badge&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens&wt.mc_id=vscode-versionlens-gitlab) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/pflannery.vscode-versionlens.svg?color=blue&style=flat-square)](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/pflannery.vscode-versionlens.svg?color=blue&style=flat-square)](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens) [![The ISC License](https://img.shields.io/badge/license-ISC-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/ISC)
+## Modified Content
 
-[![](https://gitlab.com/versionlens/vscode-versionlens/badges/master/pipeline.svg)](https://gitlab.com/versionlens/vscode-versionlens/-/pipelines)
+- support nest `versionlens.npm.dependencyProperties` setting, for example: "pnpm.overrides"
 
+## Features
 
-This extension shows __version__ information when opening a package or project for one of the following:
+This extension shows **version** information when opening a package or project for one of the following:
 
-- dotnet https://www.dotnetfoundation.org/
-- dub https://code.dlang.org/
-- jspm https://jspm.io/,
-- maven https://maven.apache.org/
-- npm https://www.npmjs.com/
-- pub https://pub.dev/
-- composer https://getcomposer.org/
+- dotnet <https://www.dotnetfoundation.org/>
+- dub <https://code.dlang.org/>
+- jspm <https://jspm.io/>,
+- maven <https://maven.apache.org/>
+- npm <https://www.npmjs.com/>
+- pub <https://pub.dev/>
+- composer <https://getcomposer.org/>
 
 ## How do I see version information?
 
@@ -60,10 +60,10 @@ If that fails then have a look in the `Log (Extension Host)` channel. Report it 
 
 - Version lens writes a log to an output channel in vscode.
 
-  If your experiencing issues please set your `versionlens.logging.level` to `debug` (vscode needs to be restarted) 
-    
+  If your experiencing issues please set your `versionlens.logging.level` to `debug` (vscode needs to be restarted)
+
   Then open the channel like:
-    
+
   ![image](https://gitlab.com/versionlens/vscode-versionlens/-/raw/master/images/faq/ext-log.png)
 
 ## License

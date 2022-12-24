@@ -9,7 +9,7 @@
   },
   "author": "Peter Flannery",
   "license": "ISC",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "publisher": "YuTengjing",
   "displayName": "Version Lens",
   "icon": "images/logo.png",
@@ -48,7 +48,9 @@
     "pack:test": "npm run -s pack -- --env.test=true --mode=development",
     "pretest": "npm run -s clean && npm run -s lint:test && npm run -s pack:test",
     "test": "node ./test/run.vscode.tests",
-    "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js"
+    "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
   },
   "devDependencies": {
     "@types/node": "^16.18.10",
