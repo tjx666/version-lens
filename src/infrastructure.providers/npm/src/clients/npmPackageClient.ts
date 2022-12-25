@@ -147,7 +147,7 @@ export class NpmPackageClient implements IPackageClient<null> {
         source,
         request,
         ResponseFactory.createResponseStatus(response.source, response.status),
-        suggestions
+        suggestions.filter(Boolean)
       );
 
     });
