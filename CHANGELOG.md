@@ -1,3 +1,9 @@
+# 1.0.12
+
+## Fixed
+
+- read flags from null
+
 # 1.0.11
 
 ## Added
