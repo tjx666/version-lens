@@ -48,9 +48,7 @@
     "pack:test": "npm run -s pack -- --env.test=true --mode=development",
     "pretest": "npm run -s clean && npm run -s lint:test && npm run -s pack:test",
     "test": "node ./test/run.vscode.tests",
-    "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js",
-    "package": "vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies"
+    "test:unit": "npm run pretest && env TEST=unit node ./dist/extension.test.js"
   },
   "devDependencies": {
     "@types/node": "^16.18.10",
