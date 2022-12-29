@@ -1,3 +1,9 @@
+# 1.1.0
+
+## Added
+
+- support `versionlens.npm.jsonPatterns` setting
+
 # 1.0.12
 
 ## Fixed

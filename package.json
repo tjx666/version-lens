@@ -5,11 +5,11 @@
   "description": "Shows the latest version for each package using code lens",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/versionlens/vscode-versionlens.git"
+    "url": "git@github.com:tjx666/version-lens.git"
   },
   "author": "Peter Flannery",
   "license": "ISC",
-  "version": "1.0.12",
+  "version": "1.1.0",
   "publisher": "YuTengjing",
   "displayName": "Version Lens",
   "icon": "images/logo.png",

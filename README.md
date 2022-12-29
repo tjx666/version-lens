@@ -3,6 +3,7 @@
 ## Modified Content
 
 - support nest `versionlens.npm.dependencyProperties` setting, for example: "pnpm.overrides"
+- support `versionlens.npm.jsonPatterns` setting
 
 ## Features
 
