@@ -20,7 +20,10 @@ export function filtersProvidersByFileName(
   const filename = basename(fileName);
 
   const filtered = providers.filter(
-    provider => minimatch(filename, provider.config.fileMatcher.pattern)
+    provider => {
+      const { pattern } = provider.config.fileMatcher;
+      return typeof pattern === 'function' ? pattern(fileName) : minimatch(filename, pattern)
+    }
   );
 
   if (filtered.length === 0) return [];

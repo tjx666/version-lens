@@ -1,9 +1,17 @@
-import { ICachingOptions, IHttpOptions } from 'core.clients';
+import {
+  ICachingOptions,
+  IHttpOptions,
+} from 'core.clients';
 import { IFrozenOptions } from 'core.configuration';
-import { ProviderSupport, IProviderConfig, TProviderFileMatcher } from 'core.providers';
+import {
+  IProviderConfig,
+  ProviderSupport,
+  TProviderFileMatcher,
+} from 'core.providers';
+import minimatch = require('minimatch');
 
-import { GitHubOptions } from './options/githubOptions';
 import { NpmContributions } from './definitions/eNpmContributions';
+import { GitHubOptions } from './options/githubOptions';
 
 export class NpmConfig implements IProviderConfig {
 
@@ -32,7 +40,7 @@ export class NpmConfig implements IProviderConfig {
   fileMatcher: TProviderFileMatcher = {
     language: 'json',
     scheme: 'file',
-    pattern: '**/package.json',
+    pattern: (fileName) => this.jsonPatterns.some(p => minimatch(fileName, p)),
   };
 
   caching: ICachingOptions;
@@ -43,6 +51,10 @@ export class NpmConfig implements IProviderConfig {
 
   get dependencyProperties(): Array<string> {
     return this.config.get(NpmContributions.DependencyProperties);
+  }
+
+  get jsonPatterns(): Array<string> {
+    return this.config && this.config.get(NpmContributions.JsonPatterns);
   }
 
   get distTagFilter(): Array<string> {

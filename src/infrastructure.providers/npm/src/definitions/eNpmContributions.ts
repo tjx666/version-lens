@@ -4,5 +4,6 @@ export enum NpmContributions {
 
   Github = 'npm.github',
   DependencyProperties = 'npm.dependencyProperties',
+  JsonPatterns = 'npm.jsonPatterns',
   DistTagFilter = 'npm.distTagFilter',
 }

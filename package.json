@@ -255,6 +255,16 @@
           ],
           "description": "Defines which properties in package.json should be parsed by this extension"
         },
+        "versionlens.npm.jsonPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/package.json"
+          ],
+          "markdownDescription": "Defines [minimatch](https://github.com/isaacs/minimatch patterns which filter json files should provide version codelens"
+        },
         "versionlens.npm.distTagFilter": {
           "type": "array",
           "items": {
