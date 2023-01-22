@@ -263,7 +263,7 @@
           "default": [
             "**/package.json"
           ],
-          "markdownDescription": "Defines [minimatch](https://github.com/isaacs/minimatch patterns which filter json files should provide version codelens"
+          "markdownDescription": "Defines [minimatch](https://github.com/isaacs/minimatch] patterns which filter json files should provide version codelens"
         },
         "versionlens.npm.distTagFilter": {
           "type": "array",
