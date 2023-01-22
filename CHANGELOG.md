@@ -1,3 +1,9 @@
+# 1.1.1
+
+## Fixed
+
+- setting `versionlens.npm.jsonPatterns` description link
+
 # 1.1.0
 
 ## Added
